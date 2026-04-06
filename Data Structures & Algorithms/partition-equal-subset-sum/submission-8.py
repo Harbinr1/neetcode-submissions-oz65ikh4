@@ -1,0 +1,15 @@
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        total = sum(nums)
+        if total % 2 != 0:
+            return False  # odd sum cannot be equally partitioned
+
+        target = total // 2
+        dp = [False] * (target + 1)
+        dp[0] = True
+
+        for v in nums:
+            for i in range(target, v-1, -1):
+                dp[i] = dp[i] or dp[i-v]
+
+        return dp[target]
